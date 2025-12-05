@@ -3,8 +3,6 @@
 -- Inserção de dados de teste (mínimo 10 registros por tabela) e consultas complexas
 -- ============================================================================
 
-\c agencia_turismo;
-
 -- ============================================================================
 -- 1. POPULAÇÃO DE DADOS (DML - INSERT)
 -- ============================================================================
@@ -126,6 +124,7 @@ INSERT INTO tb_pagamentos (id_reserva, forma_pagamento, numero_parcela, total_pa
 (1, 'CREDITO', 3, 3, 4500.00, '2025-01-15', 'PENDENTE', NULL),
 (2, 'PIX', 1, 1, 7980.00, '2024-11-20', 'PAGO', 'PIX20241120001'),
 (3, 'CREDITO', 1, 5, 8500.00, '2024-11-10', 'PAGO', 'TXN002345678901'),
+
 (3, 'CREDITO', 2, 5, 8500.00, '2024-12-10', 'PAGO', 'TXN002345678902'),
 (4, 'DEBITO', 1, 1, 3500.00, '2024-11-25', 'PAGO', 'DEB20241125001'),
 (5, 'CREDITO', 1, 2, 7176.00, '2024-11-30', 'PAGO', 'TXN003456789012'),
@@ -312,5 +311,3 @@ SELECT
 -- CONSULTAS: 10 consultas SQL complexas demonstrando JOINs, agregações,
 -- subconsultas, window functions e análises gerenciais
 -- ============================================================================
-
-SELECT 'Etapa 2 concluída! Dados inseridos e consultas criadas.' AS status;

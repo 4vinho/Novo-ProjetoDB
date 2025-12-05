@@ -221,14 +221,18 @@ BEGIN
         SELECT
             floor(random() * 10000000 + 1)::INTEGER,
             (ARRAY['DINHEIRO', 'DEBITO', 'CREDITO', 'CREDITO', 'CREDITO', 'PIX', 'PIX', 'TRANSFERENCIA', 'BOLETO'])[floor(random() * 9 + 1)],
-            floor(random() * 12 + 1)::INTEGER,
-            floor(random() * 12 + 1)::INTEGER,
+            parcela.numero_parcela,
+            parcela.total_parcelas,
             100.00 + (random() * 9900)::NUMERIC(10,2),
             CURRENT_DATE + (random() * 365)::INTEGER,
             (ARRAY['PENDENTE', 'PAGO', 'PAGO', 'PAGO', 'PAGO', 'CANCELADO', 'ESTORNADO'])[floor(random() * 7 + 1)],
             'TXN' || LPAD((batch * v_batch_size + seq_idx)::TEXT, 20, '0'),
             CURRENT_TIMESTAMP - (random() * 365 ||' days')::INTERVAL
-        FROM generate_series(1, v_batch_size) AS seq(seq_idx);
+        FROM generate_series(1, v_batch_size) AS seq(seq_idx)
+        CROSS JOIN LATERAL (
+            SELECT total_parcelas, floor(random() * total_parcelas)::INTEGER + 1 AS numero_parcela
+            FROM (SELECT floor(random() * 12 + 1)::INTEGER AS total_parcelas) AS t
+        ) AS parcela;
 
         IF batch % 10 = 9 THEN
         END IF;
